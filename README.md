@@ -11,6 +11,10 @@ sumber materi:https://www.youtube.com/playlist?list=PLC3y8-rFHvwgC9mj0qv972IO5Dm
 3. Project Structure
 4. Routing
 5. Links
+6. Pre-rendering
+7. getStaticProps
+8. getStaticPath
+   ...
 
 ## Tech yang di pakai:
 

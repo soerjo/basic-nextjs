@@ -1,4 +1,6 @@
-import { Ilinks } from "../Alinks";
+//data tutorial pertama
+
+import { Ilinks } from "../components/Alinks";
 import { AiFillHome } from "react-icons/ai";
 import { FaBlogger } from "react-icons/fa";
 import { IoDocumentsSharp } from "react-icons/io5";
@@ -8,21 +10,21 @@ export const pages: Array<Ilinks> = [
   {
     url: "/",
     textLink: "home",
-    icon: <AiFillHome />,
+    icon: AiFillHome,
   },
   {
     url: "/blog",
     textLink: "blog",
-    icon: <FaBlogger />,
+    icon: FaBlogger,
   },
   {
     url: "/docs",
     textLink: "docs",
-    icon: <IoDocumentsSharp />,
+    icon: IoDocumentsSharp,
   },
   {
     url: "/products",
     textLink: "products",
-    icon: <BsFillBagCheckFill />,
+    icon: BsFillBagCheckFill,
   },
 ];

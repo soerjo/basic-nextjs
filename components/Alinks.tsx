@@ -4,7 +4,7 @@ import Link from "next/link";
 export interface Ilinks {
   url: string;
   textLink?: string;
-  icon?: React.ReactNode;
+  icon?: React.FunctionComponent<any>;
 }
 
 export interface IAlinks extends Ilinks {
