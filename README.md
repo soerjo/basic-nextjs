@@ -11,3 +11,9 @@ sumber materi:https://www.youtube.com/playlist?list=PLC3y8-rFHvwgC9mj0qv972IO5Dm
 3. Project Structure
 4. Routing
 5. Links
+
+## Tech yang di pakai:
+
+1. Tailwind
+2. React Icon
+3. ...
