@@ -5,7 +5,7 @@ import { IoChevronBack } from "react-icons/io5";
 import { IdataPost } from ".";
 
 interface IPostDetails {
-  data: IdataPost;
+  data: IdataPost | null;
 }
 
 const PostDetails: React.FC<IPostDetails> = ({ data }) => {
@@ -25,9 +25,9 @@ const PostDetails: React.FC<IPostDetails> = ({ data }) => {
           ) : (
             <>
               <h2 className="text-xl font-medium text-green-500 capitalize">
-                {data.title}
+                {data?.title}
               </h2>
-              <p className="text-base ">{data.body}</p>
+              <p className="text-base ">{data?.body}</p>
             </>
           )}
         </div>
@@ -47,28 +47,44 @@ const PostDetails: React.FC<IPostDetails> = ({ data }) => {
 export default PostDetails;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch(`http://localhost:4000/posts`);
-  const datas: IdataPost[] = await response.json();
-  const paths = datas.slice(0, 5).map((data) => ({
-    params: {
-      postId: `${data.id}`,
-    },
-  }));
-  return {
-    paths,
-    fallback: true,
-  };
+  try {
+    const response = await fetch(`http://localhost:4000/posts`);
+    const datas: IdataPost[] = await response.json();
+    const paths = datas.slice(0, 5).map((data) => ({
+      params: {
+        postId: `${data.id}`,
+      },
+    }));
+    return {
+      paths,
+      fallback: true,
+    };
+  } catch (error) {
+    return {
+      paths: [],
+      fallback: true,
+    };
+  }
 };
 
 export const getStaticProps: GetStaticProps<IPostDetails> = async ({
   params,
 }) => {
-  const response = await fetch(`http://localhost:4000/posts/${params?.postId}`);
-  const datas: IdataPost = await response.json();
-
-  return {
-    props: {
-      data: datas,
-    },
-  };
+  try {
+    const response = await fetch(
+      `http://localhost:4000/posts/${params?.postId}`
+    );
+    const datas: IdataPost = await response.json();
+    return {
+      props: {
+        data: datas,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        data: null,
+      },
+    };
+  }
 };

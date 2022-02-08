@@ -10,17 +10,21 @@ export interface Inews {
 }
 
 interface INewsPageProps {
-  news: Array<Inews>;
-  catagory: string[];
+  news: Array<Inews> | null;
+  catagory: string[] | null;
 }
 
 const NewsPage: React.FC<INewsPageProps> = ({ news, catagory }) => {
+  if (!news && !catagory) {
+    return <p className="bg-red-500 text-white">Some think error!</p>;
+  }
+
   return (
     <>
       <h1 className="text-2xl font-medium text-slate-700 ">Page News List:</h1>
 
       <div className="mx-auto container py-4 border-indigo-500 border-b-2">
-        {catagory.map((cat, index) => {
+        {catagory?.map((cat, index) => {
           return (
             <button
               className="bg-indigo-500 rounded py-1 px-3 mx-2 capitalize text-white hover:shadow-lg cursor-pointer hover:font-medium"
@@ -63,17 +67,26 @@ export const getServerSideProps: GetServerSideProps<
 > = async () => {
   console.log("Generating / Regenerating NewsList");
 
-  const fetchNews = await fetch("http://localhost:4000/news");
-  const news: Inews[] = await fetchNews.json();
+  try {
+    const fetchNews = await fetch("http://localhost:4000/news");
+    const news: Inews[] = await fetchNews.json();
 
-  const catagory = news
-    .map((berita) => berita.catagory)
-    .filter((value, index, self) => self.indexOf(value) === index);
+    const catagory = news
+      .map((berita) => berita.catagory)
+      .filter((value, index, self) => self.indexOf(value) === index);
 
-  return {
-    props: {
-      news,
-      catagory,
-    },
-  };
+    return {
+      props: {
+        news,
+        catagory,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        news: null,
+        catagory: null,
+      },
+    };
+  }
 };

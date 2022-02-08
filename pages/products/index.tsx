@@ -10,10 +10,13 @@ export interface Iproduct {
 }
 
 interface IProductProps {
-  products: Array<Iproduct>;
+  products: Array<Iproduct> | null;
 }
 
 const ProductPage: React.FC<IProductProps> = ({ products }) => {
+  if (!products) {
+    return <p className="bg-red-500 text-white">Some think error!</p>;
+  }
   return (
     <>
       <div className="bg-green-400 py-3 flex ">
@@ -22,18 +25,19 @@ const ProductPage: React.FC<IProductProps> = ({ products }) => {
         </h1>
       </div>
       <div className="container mx-auto mt-5">
-        {products?.map((products) => {
-          return (
-            <Alinks key={products.id} url={`products/${products.id}`}>
-              <div className="bg-sky-300 p-3 mb-2 cursor-pointer hover:bg-sky-600">
-                <h2 className="text-white text-xl font-bold capitalize">
-                  {products.productsName}
-                </h2>
-                <h3 className="text-base ">{products.harga}</h3>
-              </div>
-            </Alinks>
-          );
-        })}
+        {products &&
+          products?.map((products) => {
+            return (
+              <Alinks key={products.id} url={`products/${products.id}`}>
+                <div className="bg-sky-300 p-3 mb-2 cursor-pointer hover:bg-sky-600">
+                  <h2 className="text-white text-xl font-bold capitalize">
+                    {products.productsName}
+                  </h2>
+                  <h3 className="text-base ">{products.harga}</h3>
+                </div>
+              </Alinks>
+            );
+          })}
       </div>
     </>
   );
@@ -44,13 +48,21 @@ export default ProductPage;
 export const getStaticProps: GetStaticProps<IProductProps> = async () => {
   console.log("Generating / Regenerating ProductList");
 
-  const fetchProducts = await fetch("http://localhost:4000/products");
-  const products: Iproduct[] = await fetchProducts.json();
+  try {
+    const fetchProducts = await fetch("http://localhost:4000/products");
+    const products: Iproduct[] = await fetchProducts.json();
 
-  return {
-    props: {
-      products,
-    },
-    revalidate: 5,
-  };
+    return {
+      props: {
+        products,
+      },
+      revalidate: 5,
+    };
+  } catch (error) {
+    return {
+      props: {
+        products: null,
+      },
+    };
+  }
 };

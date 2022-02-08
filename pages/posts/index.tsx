@@ -10,10 +10,14 @@ export interface IdataPost {
 }
 
 type IPostPage = {
-  posts: Array<IdataPost>;
+  posts: Array<IdataPost> | null;
 };
 
 const PostsPage: React.FC<IPostPage> = ({ posts }) => {
+  if (!posts) {
+    return <p className="bg-red-500 text-white">Some think error!</p>;
+  }
+
   return (
     <>
       <div className="bg-green-400 py-3 flex ">
@@ -22,7 +26,7 @@ const PostsPage: React.FC<IPostPage> = ({ posts }) => {
         </h1>
       </div>
       <div className="container mx-auto mt-5">
-        {posts.map((post) => {
+        {posts?.map((post) => {
           return (
             <Alinks key={post.id} url={`posts/${post.id}`}>
               <div className="bg-sky-300 p-3 mb-2 cursor-pointer hover:bg-sky-600">
@@ -40,12 +44,20 @@ export default PostsPage;
 
 export const getStaticProps: GetStaticProps<IPostPage> = async () => {
   console.log("Generating / Regenerating PostList");
-  const response = await fetch("http://localhost:4000/posts");
-  const data: IdataPost[] = await response.json();
+  try {
+    const response = await fetch("http://localhost:4000/posts");
+    const data: IdataPost[] = await response.json();
 
-  return {
-    props: {
-      posts: data.slice(0, 5),
-    },
-  };
+    return {
+      props: {
+        posts: data.slice(0, 5),
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        posts: null,
+      },
+    };
+  }
 };

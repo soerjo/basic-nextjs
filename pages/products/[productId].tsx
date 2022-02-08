@@ -5,7 +5,7 @@ import { IoChevronBack } from "react-icons/io5";
 import { GetStaticPaths, GetStaticProps } from "next";
 
 interface IProductDetailsProps {
-  data: Iproduct;
+  data: Iproduct | null;
 }
 
 const ProductDetails: React.FC<IProductDetailsProps> = ({ data }) => {
@@ -25,13 +25,13 @@ const ProductDetails: React.FC<IProductDetailsProps> = ({ data }) => {
           ) : (
             <>
               <h2 className="text-3xl font-extrabold text-green-500 capitalize border-b-2">
-                {data.productsName}
+                {data?.productsName}
               </h2>
               <h3 className="text-xl text-slate-700 font-bold">
-                Harga: Rp. {data.harga}
+                Harga: Rp. {data?.harga}
               </h3>
               <p className="text-base text-slate-500  ">
-                Ketersediaan: {data.ketersediaan}
+                Ketersediaan: {data?.ketersediaan}
               </p>
             </>
           )}
@@ -54,31 +54,45 @@ export default ProductDetails;
 export const getStaticPaths: GetStaticPaths<{
   productId: string;
 }> = async () => {
-  const fetchProducts = await fetch("http://localhost:4000/products");
-  const products: Iproduct[] = await fetchProducts.json();
+  try {
+    const fetchProducts = await fetch("http://localhost:4000/products");
+    const products: Iproduct[] = await fetchProducts.json();
 
-  const paths = products.map((product) => ({
-    params: {
-      productId: `${product.id}`,
-    },
-  }));
-  return {
-    paths,
-    fallback: true,
-  };
+    const paths = products.map((product) => ({
+      params: {
+        productId: `${product.id}`,
+      },
+    }));
+    return {
+      paths,
+      fallback: true,
+    };
+  } catch (error) {
+    return {
+      paths: [],
+      fallback: true,
+    };
+  }
 };
 
-export const getStaticProps: GetStaticProps<IProductDetailsProps> = async ({
-  params,
-}) => {
-  const fetchProducts = await fetch(
-    `http://localhost:4000/products/${params?.productId}`
-  );
-  const data: Iproduct = await fetchProducts.json();
-  return {
-    props: {
-      data,
-    },
-    revalidate: 5,
-  };
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  try {
+    const fetchProducts = await fetch(
+      `http://localhost:4000/products/${params?.productId}`
+    );
+    const data: Iproduct = await fetchProducts.json();
+    return {
+      props: {
+        data,
+      },
+      revalidate: 5,
+    };
+  } catch (error) {
+    return {
+      props: {
+        data: null,
+      },
+      revalidate: 5,
+    };
+  }
 };

@@ -34,16 +34,23 @@ const NewsFromCatagory: React.FC<INewsCatagoryProps> = ({ news }) => {
 export default NewsFromCatagory;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { params, query } = context;
+  const { params } = context;
+  try {
+    const fetchFromCatagory = await fetch(
+      `http://localhost:4000/news?catagory=${params?.catagory}`
+    );
+    const news: Inews[] = await fetchFromCatagory.json();
 
-  const fetchFromCatagory = await fetch(
-    `http://localhost:4000/news?catagory=${params?.catagory}`
-  );
-  const news: Inews[] = await fetchFromCatagory.json();
-
-  return {
-    props: {
-      news,
-    },
-  };
+    return {
+      props: {
+        news,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        news: [],
+      },
+    };
+  }
 };
