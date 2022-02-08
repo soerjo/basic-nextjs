@@ -1,39 +1,56 @@
+import { GetStaticProps } from "next";
 import React from "react";
 import Alinks from "../../components/Alinks";
 
-const products = [
-  {
-    productName: "product01",
-    id: "01",
-  },
-  {
-    productName: "product02",
-    id: "02",
-  },
-  {
-    productName: "product03",
-    id: "03",
-  },
-  {
-    productName: "product04",
-    id: "04",
-  },
-];
+export interface Iproduct {
+  id: number;
+  productsName: string;
+  harga: number;
+  ketersediaan: number;
+}
 
-const ProductPage = () => {
+interface IProductProps {
+  products: Array<Iproduct>;
+}
+
+const ProductPage: React.FC<IProductProps> = ({ products }) => {
   return (
-    <div className="bg-blue-300 flex justify-center items-center h-screen">
-      {products.map((product) => {
-        return (
-          <Alinks key={product.id} url={`products/${product.id}`}>
-            <div className="container bg-green-300 flex justify-center items-center flex-col w-40 h-40 hover:bg-gray-500 hover:text-cyan-100 cursor-pointer">
-              {product.productName}
-            </div>
-          </Alinks>
-        );
-      })}
-    </div>
+    <>
+      <div className="bg-green-400 py-3 flex ">
+        <h1 className="text-2xl font-semibold text-white uppercase mx-auto">
+          Product Page
+        </h1>
+      </div>
+      <div className="container mx-auto mt-5">
+        {products?.map((products) => {
+          return (
+            <Alinks key={products.id} url={`products/${products.id}`}>
+              <div className="bg-sky-300 p-3 mb-2 cursor-pointer hover:bg-sky-600">
+                <h2 className="text-white text-xl font-bold capitalize">
+                  {products.productsName}
+                </h2>
+                <h3 className="text-base ">{products.harga}</h3>
+              </div>
+            </Alinks>
+          );
+        })}
+      </div>
+    </>
   );
 };
 
 export default ProductPage;
+
+export const getStaticProps: GetStaticProps<IProductProps> = async () => {
+  console.log("Generating / Regenerating ProductList");
+
+  const fetchProducts = await fetch("http://localhost:4000/products");
+  const products: Iproduct[] = await fetchProducts.json();
+
+  return {
+    props: {
+      products,
+    },
+    revalidate: 5,
+  };
+};

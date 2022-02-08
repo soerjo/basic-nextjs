@@ -11,7 +11,7 @@ interface IPostDetails {
 const PostDetails: React.FC<IPostDetails> = ({ data }) => {
   const router = useRouter();
   const handlebutton = () => {
-    router.back();
+    router.push("/posts");
   };
   return (
     <div>
@@ -47,7 +47,7 @@ const PostDetails: React.FC<IPostDetails> = ({ data }) => {
 export default PostDetails;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch(`http://jsonplaceholder.typicode.com/posts`);
+  const response = await fetch(`http://localhost:4000/posts`);
   const datas: IdataPost[] = await response.json();
   const paths = datas.slice(0, 5).map((data) => ({
     params: {
@@ -63,9 +63,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<IPostDetails> = async ({
   params,
 }) => {
-  const response = await fetch(
-    `http://jsonplaceholder.typicode.com/posts/${params?.postId}`
-  );
+  const response = await fetch(`http://localhost:4000/posts/${params?.postId}`);
   const datas: IdataPost = await response.json();
 
   return {

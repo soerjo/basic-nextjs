@@ -7,7 +7,7 @@ const Appbar = ({ pages }: { pages: Array<Ilinks> }) => {
   const { pathname } = router;
 
   return (
-    <nav className="bg-green-300 w-screen py-2 flex justify-center ">
+    <nav className="bg-green-300 w-full py-2 flex justify-center ">
       <ul className="flex space-x-3 mx-auto">
         {pages.map((page, index) => {
           const { icon: Icon, url, textLink } = page;

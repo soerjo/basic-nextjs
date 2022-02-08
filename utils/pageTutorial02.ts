@@ -5,6 +5,8 @@ import { AiFillHome } from "react-icons/ai";
 import { HiUsers } from "react-icons/hi";
 import { MdLocalPostOffice } from "react-icons/md";
 import { BsFillBagCheckFill } from "react-icons/bs";
+import { FaNewspaper } from "react-icons/fa";
+import { AiFillDashboard } from "react-icons/ai";
 
 export const pages02: Array<Ilinks> = [
   {
@@ -21,5 +23,20 @@ export const pages02: Array<Ilinks> = [
     url: "/posts",
     textLink: "posts",
     icon: MdLocalPostOffice,
+  },
+  {
+    url: "/products",
+    textLink: "products",
+    icon: BsFillBagCheckFill,
+  },
+  {
+    url: "/news",
+    textLink: "news",
+    icon: FaNewspaper,
+  },
+  {
+    url: "/dashboard",
+    textLink: "dashboard",
+    icon: AiFillDashboard,
   },
 ];

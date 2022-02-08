@@ -39,12 +39,13 @@ const PostsPage: React.FC<IPostPage> = ({ posts }) => {
 export default PostsPage;
 
 export const getStaticProps: GetStaticProps<IPostPage> = async () => {
-  const response = await fetch("http://jsonplaceholder.typicode.com/posts");
+  console.log("Generating / Regenerating PostList");
+  const response = await fetch("http://localhost:4000/posts");
   const data: IdataPost[] = await response.json();
 
   return {
     props: {
-      posts: data.slice(0, 50),
+      posts: data.slice(0, 5),
     },
   };
 };

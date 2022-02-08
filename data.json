@@ -298,5 +298,98 @@
         "bs": "target end-to-end models"
       }
     }
-  ]
+  ],
+  "products": [
+    {
+      "id": 1,
+      "productsName": "komputer",
+      "harga": 8000,
+      "ketersediaan": 100
+    },
+    {
+      "id": 2,
+      "productsName": "flashdisk",
+      "harga": 100,
+      "ketersediaan": 50
+    },
+    {
+      "id": 3,
+      "productsName": "ssd",
+      "harga": 500,
+      "ketersediaan": 2
+    },
+    {
+      "id": 4,
+      "productsName": "PC",
+      "harga": 12000,
+      "ketersediaan": 25
+    },
+    {
+      "id": 5,
+      "productsName": "HDD",
+      "harga": 100,
+      "ketersediaan": 89
+    },
+    {
+      "id": 6,
+      "productsName": "Kamera",
+      "harga": 2500,
+      "ketersediaan": 10
+    }
+  ],
+  "news": [
+    {
+      "id": 1,
+      "title": "News Article 1",
+      "description": "Description 01",
+      "catagory": "sports"
+    },
+    {
+      "id": 2,
+      "title": "News Article 2",
+      "description": "Description 02",
+      "catagory": "politics"
+    },
+    {
+      "id": 3,
+      "title": "News Article 3",
+      "description": "Description 03",
+      "catagory": "religions"
+    },
+    {
+      "id": 4,
+      "title": "News Article 4",
+      "description": "Description 04",
+      "catagory": "sports"
+    },
+    {
+      "id": 5,
+      "title": "News Article 5",
+      "description": "Description 05",
+      "catagory": "religions"
+    },
+    {
+      "id": 6,
+      "title": "News Article 6",
+      "description": "Description 06",
+      "catagory": "politics"
+    },
+    {
+      "id": 7,
+      "title": "News Article 7",
+      "description": "Description 07",
+      "catagory": "sports"
+    },
+    {
+      "id": 8,
+      "title": "News Article 8",
+      "description": "Description 08",
+      "catagory": "religions"
+    }
+  ],
+  "dashboard": {
+    "likes": 50,
+    "subscribes": 150,
+    "folowers": 2000
+  }
 }
