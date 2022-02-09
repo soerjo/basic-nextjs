@@ -7,6 +7,7 @@ import { MdLocalPostOffice } from "react-icons/md";
 import { BsFillBagCheckFill } from "react-icons/bs";
 import { FaNewspaper } from "react-icons/fa";
 import { AiFillDashboard } from "react-icons/ai";
+import { BsCardImage } from "react-icons/bs";
 
 export const pages02: Array<Ilinks> = [
   {
@@ -38,5 +39,10 @@ export const pages02: Array<Ilinks> = [
     url: "/dashboard",
     textLink: "dashboard",
     icon: AiFillDashboard,
+  },
+  {
+    url: "/image",
+    textLink: "image",
+    icon: BsCardImage,
   },
 ];

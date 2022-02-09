@@ -1,5 +1,6 @@
 import { GetStaticProps } from "next";
 import React from "react";
+import Head from "next/head";
 import Alinks from "../../components/Alinks";
 
 export interface IdataPost {
@@ -20,6 +21,9 @@ const PostsPage: React.FC<IPostPage> = ({ posts }) => {
 
   return (
     <>
+      <Head>
+        <title>Web Soerjo | Posts</title>
+      </Head>
       <div className="bg-green-400 py-3 flex ">
         <h1 className="text-2xl font-semibold text-white uppercase mx-auto">
           PostPage

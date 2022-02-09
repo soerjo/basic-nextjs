@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
 import React from "react";
-import Alinks from "../../components/Alinks";
+import Alinks from "components/Alinks";
 
 export interface Iproduct {
   id: number;
